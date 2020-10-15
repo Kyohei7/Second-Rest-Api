@@ -51,17 +51,17 @@ module.exports = {
     })
   },
   
-  getDataportfolioModel: (limit, offset, cb) => {
+  getDataPortfolioModel: (limit, offset, cb) => {
     return new Promise((resolve, reject) => {
-      db.query(`SELECT developer.name_developer, 
-                portfolio.name,
-                portfolio.description, 
-                portfolio.link,
-                portfolio.repository,
-                portfolio.company,
-                portfolio.type, 
-                portfolio.photo,
-                portfolio.id_portfolio, 
+      db.query(`SELECT portfolio.id_portfolio, 
+                       developer.name_developer, 
+                       portfolio.name,
+                       portfolio.description, 
+                       portfolio.link,
+                       portfolio.repository,
+                       portfolio.company,
+                       portfolio.type, 
+                       portfolio.photo,
                 (SELECT COUNT(*) FROM portfolio) as count FROM portfolio 
                 JOIN developer ON portfolio.id_developer = developer.id_developer 
                 LIMIT ${limit} OFFSET ${offset}`, (err, result, _fields) => {

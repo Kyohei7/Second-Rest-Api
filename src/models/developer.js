@@ -43,9 +43,11 @@ module.exports = {
   },
   
   deleteDeveloperModel: (id) => {
+    console.log(id);
     return new Promise((resolve, reject) => {
-      db.query(`DELETE FROM developer WHERE id = '${id}'`, (err, result, _field) => {
+      db.query(`DELETE FROM developer WHERE id_developer = '${id}'`, (err, result, _field) => {
         if (err) {
+          console.log(err);
           reject(new Error(err))
         } else {
           resolve(result)

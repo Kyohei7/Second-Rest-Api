@@ -77,15 +77,17 @@ module.exports = {
   
   getDataProjectModel: (limit, offset) => {
     return new Promise((resolve, reject) => {
-      db.query(`SELECT project.project_name, 
+      db.query(`SELECT project.id_project,
+                       project.name_project, 
                        project.description, 
                        project.deadline, 
                        project.photo, 
-                       company.name_company, 
+                       company.name_company,
                        project.createAt, 
-                       project.updateAt, 
-                       project.id_project, 
-                       (SELECT COUNT(*) FROM project) as count FROM project JOIN company ON project.id_company = company.id_company LIMIT ${limit} OFFSET ${offset}`, (err, result, _fields) => {
+                       project.updateAt,  
+                       (SELECT COUNT(*) FROM project) as count FROM project 
+                       JOIN company ON project.id_company = company.id_company 
+                       LIMIT ${limit} OFFSET ${offset}`, (err, result, _fields) => {
         console.log(result);
         if (err) {
           reject(new Error(err))

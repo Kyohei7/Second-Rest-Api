@@ -11,9 +11,10 @@ module.exports = {
                        company.linkedin,
                        company.photo,
                        company.createAt,
-                       company.updateAt,
+                       company.updateAt FROM company
                        WHERE id_company = ${id}`, (err, result, _field) => {
         if (err) {
+          console.log(err);
           reject(new Error(err))
         } else {
           resolve(result)

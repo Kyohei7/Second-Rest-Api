@@ -1,50 +1,41 @@
 const {
-    getDataPortfolioModel,
-    createPortfolioModel,
-    putPortfolioModel,
-    deletePortfolioModel,
-    getDataPortfolioByIDModel
-  } = require('../models/portfolio')
+    getDataExperienceModel,
+    createExperienceModel,
+    putExperienceModel,
+    deleteExperienceModel,
+    getDataExperienceByIDModel
+  } = require('../models/experience')
   
   module.exports = {
-    getDataPortfolioByID:async (req, res) => {
+    getDataExperienceByID: async (req, res) => {
       const {
         id
       } = req.params
       try {
-        const result = await getDataPortfolioByIDModel(id)
+        const result = await getDataExperienceByIDModel(id)
         if (result.length) {
           res.send({
             success: true,
-            message: `Data Portfolio id ${id}`,
+            message: `Data experience id ${id}`,
             data: result
           })
         }
       } catch (error) {
         res.send({
           success: false,
-          message: `Data Portfolio ${id} not found`
+          message: `Data experience ${id} not found`
         })
   
       }
     },
-    createPortfolio: async (req, res) => {
-      const {id_developer, name, description, link, repository, company, type} = req.body
-      const setData = {
-        id_developer, 
-        name, 
-        description, 
-        photo:req.file === undefined ? '' : req.file.filename, 
-        link,
-        repository,
-        company,
-        type
-      }
+    
+    createExperience: async (req, res) => {
+      const body = req.body
       try {
-        const result = await createPortfolioModel(setData)
+        const result = await createExperienceModel(body)
         res.status(201).send({
           success: true,
-          message: 'Portfolio data has been created',
+          message: 'Experience data has been created',
           data: result
         })
       } catch (error) {
@@ -56,21 +47,11 @@ const {
       }
     },
     
-    putPortfolio: async (req, res) => {
+    putExperience: async (req, res) => {
       const id = req.params.id
-      const {id_developer, name, description, link, repository, company, type} = req.body
-      const setData = {
-        id_developer, 
-        name, 
-        description, 
-        photo:req.file === undefined ? '' : req.file.filename, 
-        link,
-        repository,
-        company,
-        type
-      }
+      const body = req.body
       try {
-        const result = await putPortfolioModel(setData, id)
+        const result = await putExperienceModel(body, id)
         if (result.affectedRows) {
           res.send({
             success: true,
@@ -90,14 +71,14 @@ const {
       }
     },
     
-    deletePortfolio:  async (req, res) => {
+    deleteExperience: async (req, res) => {
       const id = req.params.id
       try {
-        const result = await deletePortfolioModel(id)
+        const result = await deleteExperienceModel(id)
           if (result.affectedRows) {
             res.send({
               success: true,
-              message: `Item Portfolio id ${id} has been deleted`
+              message: `Item experience id ${id} has been deleted`
             })
         } else {
           res.send({
@@ -112,13 +93,13 @@ const {
       }
     },
     
-    getDataPortfolio: async (req, res) => {
+    getDataExperience: async (req, res) => {
       let {
         page,
         limit
       } = req.query
       if (!limit) {
-        limit = 30
+        limit = 10
       } else {
         limit = parseInt(limit)
       }
@@ -131,17 +112,15 @@ const {
   
       const offset = (page - 1) * limit
       try {
-        const result = await getDataPortfolioModel(limit, offset)
+        const result = await getDataExperienceModel(limit, offset)
         if (result.length) {
           res.send({
             success: true,
-            message: 'List company',
+            message: 'List experience',
             data: result
           })
         }
       } catch (error) {
-
-        console.log(error);
         res.send({
           success: true,
           message: 'There is no item on list'

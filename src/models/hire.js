@@ -63,10 +63,12 @@ module.exports = {
                        hire.status, 
                        hire.createAt, 
                        hire.updateAt, 
-                (SELECT COUNT(*) FROM hire) as count FROM hire JOIN project ON hire.id_project=project.id_project 
+                (SELECT COUNT(*) FROM hire) as count FROM hire 
+                JOIN project ON hire.id_project=project.id_project 
                 JOIN developer ON hire.id_developer=developer.id_developer 
                 LIMIT ${limit} OFFSET ${offset}`, (err, result, _fields) => {
         if (err) {
+          console.log(err);
           reject(new Error(err))
         } else {
           resolve(result)

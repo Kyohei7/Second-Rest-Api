@@ -9,6 +9,8 @@ app.use(bodyParser.urlencoded({extended:false}))
 app.use(cors())
 app.use(morgan('dev'))
 
+app.use('/uploads', express.static('uploads'))
+
 const userRouter = require('./src/routes/user')
 app.use('/user', userRouter )
 
@@ -27,6 +29,8 @@ app.use('/project', projectRouter)
 const portfolioRouter = require('./src/routes/portfolio')
 app.use('/portfolio', portfolioRouter)
 
+const expRouter = require('./src/routes/experience')
+app.use('/experience', expRouter)
 
 
 app.use((request, response, next)=>{
