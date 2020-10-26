@@ -18,7 +18,7 @@ const {
           res.send({
             success: true,
             message: `Data Developer id ${id}`,
-            data: result
+            data: result[0]
           })
       }
     }
