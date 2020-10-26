@@ -7,6 +7,7 @@ module.exports = {
                          hire.description,
                          hire.price,
                          hire.status,
+                         project.photo,
                          company.name_company,
                          project.name_project FROM hire JOIN project ON hire.id_project = project.id_project JOIN company ON project.id_company = company.id_company WHERE hire.id_hire = ${id}`, (err, result, _field) => {
           if (err) {
@@ -25,6 +26,7 @@ module.exports = {
                          hire.price,
                          hire.status,
                          company.name_company,
+                         project.photo,
                          project.name_project FROM hire JOIN project ON hire.id_project = project.id_project JOIN company ON project.id_company = company.id_company WHERE hire.id_developer = ${id}`, (err, result, _field) => {
           if (err) {
             reject(new Error(err))
