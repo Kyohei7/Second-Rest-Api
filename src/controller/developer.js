@@ -18,7 +18,7 @@ const {
           res.send({
             success: true,
             message: `Data Developer id ${id}`,
-            data: result[0]
+            data: result
           })
       }
     }
@@ -43,6 +43,7 @@ const {
              instagram,
              github,
              gitlab,
+             id_user,
              createAt,
              updateAt } = req.body
       
@@ -58,6 +59,7 @@ const {
              instagram,
              github,
              gitlab,
+             id_user,
              createAt: new Date(),
              updateAt: new Date()
       }

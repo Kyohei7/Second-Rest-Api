@@ -3,7 +3,19 @@ const db = require('../helpers/db')
 module.exports = {
   getDataDeveloperByIDModel: (id) => {
     return new Promise((resolve, reject) => {
-      db.query(`SELECT * FROM developer WHERE developer.id_developer = ${id}`, (err, result, _field) => {
+      db.query(`SELECT developer.id_developer, 
+                       developer.name_developer,
+                       developer.photo,
+                       developer.job,
+                       developer.location,
+                       developer.status,
+                       developer.description,
+                       developer.skill,
+                       user.email,
+                       user.id_user,
+                       developer.instagram,
+                       developer.github,
+                       developer.gitlab FROM developer JOIN user ON user.id_user = developer.id_user WHERE user.id_user = ${id}`, (err, result, _field) => {
         if (err) {
           reject(new Error(err))
         } else {
