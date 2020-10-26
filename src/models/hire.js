@@ -1,17 +1,39 @@
 const db = require('../helpers/db')
 module.exports = {
   
-    getDataHireByIDModel: (id) => {
+  getDataHireByIDModel: (id) => {
     return new Promise((resolve, reject) => {
-      db.query(`SELECT * FROM hire WHERE id_hire = ${id}`, (err, result, _field) => {
-        if (err) {
-          reject(new Error(err))
-        } else {
-          resolve(result)
-        }
+        db.query(`SELECT hire.id_hire,
+                         hire.description,
+                         hire.price,
+                         hire.status,
+                         company.name_company,
+                         project.name_project FROM hire JOIN project ON hire.id_project = project.id_project JOIN company ON project.id_company = company.id_company WHERE hire.id_hire = ${id}`, (err, result, _field) => {
+          if (err) {
+            reject(new Error(err))
+          } else {
+            resolve(result)
+          }
+        })
       })
-    })
-  },
+    },
+
+    getDataHireByIdDeveloperModel: (id) => {
+      return new Promise((resolve, reject) => {
+        db.query(`SELECT hire.id_hire,
+                         hire.description,
+                         hire.price,
+                         hire.status,
+                         company.name_company,
+                         project.name_project FROM hire JOIN project ON hire.id_project = project.id_project JOIN company ON project.id_company = company.id_company WHERE hire.id_developer = ${id}`, (err, result, _field) => {
+          if (err) {
+            reject(new Error(err))
+          } else {
+            resolve(result)
+          }
+        })
+      })
+    },
   
   createHireModel: (body) => {
     return new Promise((resolve, reject) => {

@@ -3,7 +3,9 @@ const {
     createHireModel,
     putHireModel,
     deleteHireModel,
-    getDataHireByIDModel
+    getDataHireByIDModel,
+    getDataHireByIdDeveloperModel
+    
   } = require('../models/hire')
   
   module.exports = {
@@ -13,6 +15,28 @@ const {
       } = req.params
       try {
         const result = await getDataHireByIDModel(id)
+        if (result.length) {
+          res.send({
+            success: true,
+            message: `Data hire id ${id}`,
+            data: result[0]
+          })
+        }
+      } catch (error) {
+        res.send({
+          success: false,
+          message: `Data hire ${id} not found`
+        })
+  
+      }
+    },
+
+    getDataHireByIdDeveloper: async (req, res) => {
+      const {
+        id
+      } = req.params
+      try {
+        const result = await getDataHireByIdDeveloperModel(id)
         if (result.length) {
           res.send({
             success: true,
