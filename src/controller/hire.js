@@ -4,7 +4,8 @@ const {
     putHireModel,
     deleteHireModel,
     getDataHireByIDModel,
-    getDataHireByIdDeveloperModel
+    getDataHireByIdDeveloperModel,
+    patchHireModel
     
   } = require('../models/hire')
   
@@ -88,6 +89,31 @@ const {
           })
         }
       } catch (error) {
+        res.send({
+          success: false,
+          message: 'All field must be filled!'
+        })
+      }
+    },
+
+    patchHire: async (req, res) => {
+      const id = req.params.id
+      const body = req.body
+      try {
+        const result = await patchHireModel(body, id)
+        if (result.affectedRows) {
+          res.send({
+            success: true,
+            message: `Project Status with id ${id} has been updated`
+          })
+        } else {
+          res.send({
+            success: false,
+            message: 'Failed to update data!'
+          })
+        }
+      } catch (error) {
+        console.log(error);
         res.send({
           success: false,
           message: 'All field must be filled!'

@@ -52,6 +52,18 @@ module.exports = {
       })
     })
   },
+
+  patchHireModel: (data, id) => {
+    return new Promise ((resolve, reject) => {
+      db.query(`UPDATE hire SET ? WHERE id_hire = ?`, [data, id], (err, result, _field) => {
+        if (err) {
+          reject(new Error(err))
+        } else {
+          resolve(result)
+        }
+      })
+    })
+  },
   
   putHireModel: (body, id) => {
     return new Promise ((resolve, reject) => {
