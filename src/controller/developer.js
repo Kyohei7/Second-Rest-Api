@@ -3,7 +3,8 @@ const {
     createDeveloperModel,
     putDeveloperModel,
     deleteDeveloperModel,
-    getDataDeveloperByIDModel
+    getDataDeveloperByIDModel,
+    getDataDeveloperByIDDevModel
   } = require('../models/developer')
   
   module.exports = {
@@ -14,6 +15,28 @@ const {
       } = req.params
       try {
         const result = await getDataDeveloperByIDModel(id)
+        if (result.length) {
+          res.send({
+            success: true,
+            message: `Data Developer id ${id}`,
+            data: result[0]
+          })
+      }
+    }
+      catch (error) {
+        res.send({
+          success: false,
+          message: `Data Developer ${id} not found`
+        })
+      }
+    },
+
+    getDataDeveloperByIDDev: async (req, res) => {
+      const {
+        id
+      } = req.params
+      try {
+        const result = await getDataDeveloperByIDDevModel(id)
         if (result.length) {
           res.send({
             success: true,
@@ -92,6 +115,7 @@ const {
         description, 
         skill, 
         email,
+        id_user,
         instagram,
         github,
         gitlab,
@@ -110,6 +134,7 @@ const {
             instagram,
             github,
             gitlab,
+            id_user,
             createAt,
             updateAt }
       try {

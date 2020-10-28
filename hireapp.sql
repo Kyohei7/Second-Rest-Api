@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.0.3
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 15, 2020 at 06:52 AM
--- Server version: 10.4.14-MariaDB
--- PHP Version: 7.2.33
+-- Waktu pembuatan: 28 Okt 2020 pada 04.42
+-- Versi server: 10.4.14-MariaDB
+-- Versi PHP: 7.2.34
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `company`
+-- Struktur dari tabel `company`
 --
 
 CREATE TABLE `company` (
@@ -42,7 +42,7 @@ CREATE TABLE `company` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `company`
+-- Dumping data untuk tabel `company`
 --
 
 INSERT INTO `company` (`id_company`, `name_company`, `sector`, `city`, `description`, `instagram`, `linkedin`, `photo`, `id_user`, `createAt`, `updateAt`) VALUES
@@ -51,7 +51,7 @@ INSERT INTO `company` (`id_company`, `name_company`, `sector`, `city`, `descript
 -- --------------------------------------------------------
 
 --
--- Table structure for table `developer`
+-- Struktur dari tabel `developer`
 --
 
 CREATE TABLE `developer` (
@@ -67,21 +67,22 @@ CREATE TABLE `developer` (
   `instagram` varchar(255) NOT NULL,
   `github` varchar(255) NOT NULL,
   `gitlab` varchar(255) NOT NULL,
+  `id_user` int(255) NOT NULL,
   `createAt` datetime NOT NULL DEFAULT current_timestamp(),
   `updateAt` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `developer`
+-- Dumping data untuk tabel `developer`
 --
 
-INSERT INTO `developer` (`id_developer`, `name_developer`, `photo`, `job`, `location`, `status`, `description`, `skill`, `email`, `instagram`, `github`, `gitlab`, `createAt`, `updateAt`) VALUES
-(4, 'Rosyida Widadina Ningrum', 'photo-1602732939920-viewmodel-replace-loader.png', 'Android Developer', 'Jawa Timur', 'Full Time', 'lorem lorem lorem', 'Kotlin | Javascript', 'Rosida@gmail.com', '@dina', '@dina', '@dina', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `developer` (`id_developer`, `name_developer`, `photo`, `job`, `location`, `status`, `description`, `skill`, `email`, `instagram`, `github`, `gitlab`, `id_user`, `createAt`, `updateAt`) VALUES
+(4, 'Rosyida Widadina Ningrum', 'photo-1602732939920-viewmodel-replace-loader.png', 'Android Developer', 'Jawa Timur', 'Full Time', 'lorem lorem lorem', 'Kotlin | Javascript', 'rosida@gmail.com', '@dina', '@dina', '@dina', 4, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `experience`
+-- Struktur dari tabel `experience`
 --
 
 CREATE TABLE `experience` (
@@ -96,7 +97,7 @@ CREATE TABLE `experience` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `experience`
+-- Dumping data untuk tabel `experience`
 --
 
 INSERT INTO `experience` (`id_experience`, `id_developer`, `position`, `company`, `duration`, `description`, `createAt`, `updateAt`) VALUES
@@ -106,7 +107,7 @@ INSERT INTO `experience` (`id_experience`, `id_developer`, `position`, `company`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `hire`
+-- Struktur dari tabel `hire`
 --
 
 CREATE TABLE `hire` (
@@ -121,7 +122,7 @@ CREATE TABLE `hire` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `hire`
+-- Dumping data untuk tabel `hire`
 --
 
 INSERT INTO `hire` (`id_hire`, `id_project`, `id_developer`, `description`, `price`, `status`, `createAt`, `updateAt`) VALUES
@@ -131,7 +132,7 @@ INSERT INTO `hire` (`id_hire`, `id_project`, `id_developer`, `description`, `pri
 -- --------------------------------------------------------
 
 --
--- Table structure for table `portfolio`
+-- Struktur dari tabel `portfolio`
 --
 
 CREATE TABLE `portfolio` (
@@ -149,7 +150,7 @@ CREATE TABLE `portfolio` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `portfolio`
+-- Dumping data untuk tabel `portfolio`
 --
 
 INSERT INTO `portfolio` (`id_portfolio`, `id_developer`, `name`, `description`, `link`, `repository`, `company`, `type`, `photo`, `createAt`, `updateAt`) VALUES
@@ -159,7 +160,7 @@ INSERT INTO `portfolio` (`id_portfolio`, `id_developer`, `name`, `description`, 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `project`
+-- Struktur dari tabel `project`
 --
 
 CREATE TABLE `project` (
@@ -174,7 +175,7 @@ CREATE TABLE `project` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `project`
+-- Dumping data untuk tabel `project`
 --
 
 INSERT INTO `project` (`id_project`, `id_company`, `name_project`, `description`, `deadline`, `photo`, `createAt`, `updateAt`) VALUES
@@ -185,7 +186,7 @@ INSERT INTO `project` (`id_project`, `id_company`, `name_project`, `description`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user`
+-- Struktur dari tabel `user`
 --
 
 CREATE TABLE `user` (
@@ -199,7 +200,7 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `user`
+-- Dumping data untuk tabel `user`
 --
 
 INSERT INTO `user` (`id_user`, `user_name`, `email`, `password`, `role`, `createAt`, `updateAt`) VALUES
@@ -212,27 +213,28 @@ INSERT INTO `user` (`id_user`, `user_name`, `email`, `password`, `role`, `create
 --
 
 --
--- Indexes for table `company`
+-- Indeks untuk tabel `company`
 --
 ALTER TABLE `company`
   ADD PRIMARY KEY (`id_company`),
   ADD KEY `id_user` (`id_user`);
 
 --
--- Indexes for table `developer`
+-- Indeks untuk tabel `developer`
 --
 ALTER TABLE `developer`
-  ADD PRIMARY KEY (`id_developer`);
+  ADD PRIMARY KEY (`id_developer`),
+  ADD KEY `id_user` (`id_user`);
 
 --
--- Indexes for table `experience`
+-- Indeks untuk tabel `experience`
 --
 ALTER TABLE `experience`
   ADD PRIMARY KEY (`id_experience`),
   ADD KEY `id_developer` (`id_developer`);
 
 --
--- Indexes for table `hire`
+-- Indeks untuk tabel `hire`
 --
 ALTER TABLE `hire`
   ADD PRIMARY KEY (`id_hire`),
@@ -240,67 +242,67 @@ ALTER TABLE `hire`
   ADD KEY `id_developer` (`id_developer`);
 
 --
--- Indexes for table `portfolio`
+-- Indeks untuk tabel `portfolio`
 --
 ALTER TABLE `portfolio`
   ADD PRIMARY KEY (`id_portfolio`),
   ADD KEY `id_developer` (`id_developer`);
 
 --
--- Indexes for table `project`
+-- Indeks untuk tabel `project`
 --
 ALTER TABLE `project`
   ADD PRIMARY KEY (`id_project`),
   ADD KEY `id_company` (`id_company`);
 
 --
--- Indexes for table `user`
+-- Indeks untuk tabel `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id_user`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `company`
+-- AUTO_INCREMENT untuk tabel `company`
 --
 ALTER TABLE `company`
   MODIFY `id_company` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `developer`
+-- AUTO_INCREMENT untuk tabel `developer`
 --
 ALTER TABLE `developer`
   MODIFY `id_developer` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `experience`
+-- AUTO_INCREMENT untuk tabel `experience`
 --
 ALTER TABLE `experience`
   MODIFY `id_experience` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `hire`
+-- AUTO_INCREMENT untuk tabel `hire`
 --
 ALTER TABLE `hire`
   MODIFY `id_hire` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `portfolio`
+-- AUTO_INCREMENT untuk tabel `portfolio`
 --
 ALTER TABLE `portfolio`
   MODIFY `id_portfolio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `project`
+-- AUTO_INCREMENT untuk tabel `project`
 --
 ALTER TABLE `project`
   MODIFY `id_project` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `user`
+-- AUTO_INCREMENT untuk tabel `user`
 --
 ALTER TABLE `user`
   MODIFY `id_user` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
