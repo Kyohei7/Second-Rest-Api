@@ -14,16 +14,15 @@ module.exports = {
   
   getProjectbyIDCompanyModel:(id) => {
     return new Promise((resolve, reject) => {
-        db.query(`SELECT project.project_name, 
-                         project.description, 
-                         project.deadline, 
-                         project.photo, 
-                         company.name_company, 
-                         project.createAt, 
-                         project.updateAt,
-                         project.id_project, 
-                 (SELECT COUNT(*) FROM project) as count FROM project JOIN company ON project.id_company = company.id_company 
-                 WHERE project.id_company =${id}`, (err, result, _field) =>{
+        db.query(`SELECT  project.name_project, 
+                          project.description, 
+                          project.deadline, 
+                          project.photo, 
+                          company.name_company, 
+                          project.createAt, 
+                          project.updateAt, 
+                          project.id_project, 
+                          company.id_company, (SELECT COUNT(*) FROM project) as count FROM project JOIN company ON project.id_company = company.id_company WHERE project.id_company = ${id}`, (err, result, _field) =>{
         if (err) {
         reject(new Error(err))
         } else {
