@@ -10,9 +10,10 @@ module.exports = {
                        company.instagram,
                        company.linkedin,
                        company.photo,
-                       company.createAt,
-                       company.updateAt FROM company
-                       WHERE id_company = ${id}`, (err, result, _field) => {
+                       company.createAt, 
+                       company.updateAt,
+                       user.email,
+                       user.id_user FROM company JOIN user ON company.id_user=user.id_user WHERE user.id_user = ${id}`, (err, result, _field) => {
         if (err) {
           console.log(err);
           reject(new Error(err))
